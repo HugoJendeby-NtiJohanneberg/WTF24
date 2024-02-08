@@ -38,14 +38,14 @@ class App < Sinatra::Base
     #  get hämtar länk, Post skickar information till länk
     # Post var formuläret skickar datan.
     post '/movies/:id/update' do |id| 
-        kitten = params['content']
-        db.execute('UPDATE movies SET (content = ?) WHERE id = ?', kitten, id)
+        movie = params['content']
+        db.execute('UPDATE movies SET (content = ?) WHERE id = ?', movie, id)
         redirect "/movies/#{id}" 
     end
 
     # Get hämtar i detta fall delete-formuläret
     get '/movies/:id/delete' do |id|
-        @kitten = db.execute('SELECT * FROM movies WHERE id=?;', id.to_i).first
+        @movie = db.execute('SELECT * FROM movies WHERE id=?;', id.to_i).first
         erb :delete
     end
 
@@ -55,8 +55,8 @@ class App < Sinatra::Base
         redirect "/movies"
     end
 
-    get '/movies/:id' do |kitten_id|
-        @movies_selected = db.execute('SELECT * FROM movies WHERE id=?;', kitten_id.to_i).first
+    get '/movies/:id' do |movie_id|
+        @movies_selected = db.execute('SELECT * FROM movies WHERE id=?;', movie_id.to_i).first
         erb :show
     end
 
