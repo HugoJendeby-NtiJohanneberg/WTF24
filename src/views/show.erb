@@ -1,10 +1,7 @@
 
 <h2> <%= @movies_selected['name'] %> <h2>
 <p><%= @movies_selected['description'] %></p>
-
-
-<!-- <% varmkorv = @movies_selected[3] %>
-<p><% movies = db.execute('SELECT * FROM director WHERE director_id = ?', varmkorv.to_int) %>/<p>
-<p><%= varmkorv['director_name']%></p> -->
+<p>Director:</p>
+<p><a href="/movies"><%= @movies_selected['director_name'] %></a></p>
 
 <p><a href="/movies">Show me all movies!</a></p>

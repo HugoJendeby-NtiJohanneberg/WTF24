@@ -56,11 +56,10 @@ class App < Sinatra::Base
     end
 
     get '/movies/:id' do |movie_id|
-        @movies_selected = db.execute('SELECT * FROM movies WHERE id=?;', movie_id.to_i).first
+        @movies_selected = db.execute('SELECT * FROM movies JOIN director on movies.director_id = director.director_id WHERE id=?;', movie_id.to_i).first
         erb :show
     end
 
-
-
     
+
 end
