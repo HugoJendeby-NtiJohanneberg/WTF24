@@ -1,15 +1,5 @@
 class App < Sinatra::Base
 
-    # enable :sessions
-
-    # get '/' do
-    #   session[:user_id] = 1 
-    # end
-  
-    # get '/home' do
-    #   user_id = session[:user_id] 
-    # end
-
     helpers do
         def h(text)
           Rack::Utils.escape_html(text)
@@ -55,16 +45,13 @@ class App < Sinatra::Base
 
     post '/register_user/' do 
         cleartext_password = params['password'] 
-        salt_key = db.execute('SELECT text FROM words where id = ?', rand(1..50)).first #väljer en random ord från tabellen words för saltkey
-        p salt_key['text']
-        p cleartext_password
-        hashed_password = BCrypt::Password.create("#{params['password'] + salt_key['text']}") # Krypterar lösenord med saltkey
-        #spara användare och hashed_password till databasen
-        query = 'INSERT INTO users (username, password, saltkey) VALUES (?,?,?) RETURNING *' # Skapar query för att inserta instanser i tabellen users
-        db.execute(query, params['username'], hashed_password, salt_key).first # sätter in query och värden i tabellen
+        hashed_password = BCrypt::Password.create(cleartext_password) # Hashing the password directly without salt key
+        # Save the username and hashed password to the database
+        query = 'INSERT INTO users (username, password) VALUES (?,?) RETURNING *'
+        db.execute(query, params['username'], hashed_password).first
         redirect "/login/" 
     end
-    
+
     get '/movies/:id/edit' do |id| 
         @movies = db.execute('SELECT * FROM movies WHERE id = ?', id.to_i).first
         erb :edit
@@ -92,8 +79,9 @@ class App < Sinatra::Base
     end
 
     get '/movies/:id' do |movie_id|
+        p "wut"
         @movies_selected = db.execute('SELECT * FROM movies JOIN director on movies.director_id = director.director_id WHERE id=?;', movie_id.to_i).first
         erb :show
     end
-    
+
 end

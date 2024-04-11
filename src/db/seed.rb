@@ -18,9 +18,19 @@ def create_tables
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         description TEXT
+        director_id 
+    )')
+
+    db.execute('CREATE TABLE directors(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        description TEXT
+        
     )')
 
 end
+
+
 
 def seed_tables
 
