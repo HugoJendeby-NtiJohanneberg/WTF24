@@ -18,14 +18,17 @@ def create_tables
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         description TEXT
-        director_id 
+        director_id INTEGER,
+        FOREIGN KEY (director_id) REFERENCES directors(id)
     )')
 
     db.execute('CREATE TABLE directors(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        description TEXT
-        
+        description TEXT 
+
+
+
     )')
 
 end

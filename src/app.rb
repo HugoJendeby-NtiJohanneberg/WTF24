@@ -34,7 +34,25 @@ class App < Sinatra::Base
     post '/movies/' do 
         name = params['name']
         desc = params['description']
-        query = 'INSERT INTO movies (name, description) VALUES (?,?) RETURNING *'
+        director_name = params['director_name']
+        director_desc = params['director_description']
+
+        # Kolla om director redan finns
+        director = db.execute('SELECT * FROM directors WHERE name = ?', director_name).first
+
+        # Om director inte finns, skapa en ny
+        if director.nil?
+            # Insert new director into the directors table
+            db.execute('INSERT INTO directors (name, description) VALUES (?, ?)', director_name, director_desc).
+            # Retrieve the newly inserted director's ID
+            director_id = db.last_insert_row_id
+        else   
+            # Om director redan finns, använd det existerande directorns ID
+            director_id = director['id']
+        end
+
+        # Inserta movie in i movies table, inkluderar director_id
+        query = 'INSERT INTO movies (name, description, ) VALUES (?,?) RETURNING *'
         result = db.execute(query, name, desc).first 
         redirect "/movies/#{result['id']}" 
     end
@@ -80,7 +98,7 @@ class App < Sinatra::Base
 
     get '/movies/:id' do |movie_id|
         p "wut"
-        @movies_selected = db.execute('SELECT * FROM movies JOIN director on movies.director_id = director.director_id WHERE id=?;', movie_id.to_i).first
+        @movies_selected = db.execute('SELECT * FROM movies WHERE id=?;', movie_id.to_i).first
         erb :show
     end
 
