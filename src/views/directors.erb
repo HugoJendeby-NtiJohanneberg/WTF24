@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directors and Their Movies</title>
+</head>
+<body>
+
+  <h1>Directors and Their Movies</h1>
+    
+    <% directors_grouped_by_director = @directors.group_by { |director| director['id'] } %>
+    
+    <% directors_grouped_by_director.each do |director_id, movies| %>
+        <h2><%= h(movies.first['director_name']) %></h2>
+        <p><%= h(movies.first['director_description']) %></p>
+        <ul>
+            <% movies.each do |movie| %>
+                <% if movie['movie_name'] %>
+                    <li><a href="/movies/<%= movie['movie_id'] %>"><%= h(movie['movie_name']) %></a></li> 
+                <% end %>
+            <% end %>
+        </ul>
+    <% end %>
+
+</body>
+</html>

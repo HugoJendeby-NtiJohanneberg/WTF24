@@ -6,8 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello from layout.erb</h1>
+
+   <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/movies">Movies</a>
+            <a href="/movies/new">New Movie</a>
+            <% if logged_in? %>
+                <span>Welcome, <%= h(current_user['username']) %>!</span>
+                <%= logout_button %>
+            <% else %>
+                <a href="/login">Login</a>
+                <a href="/register_user">Register</a>
+            <% end %>
+        </nav>
+    </header>
+
     <%= yield %>
-    <span>Hello again from layout.erb</span>
+
 </body>
 </html>

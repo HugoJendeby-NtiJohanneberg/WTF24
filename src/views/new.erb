@@ -1,34 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Add Movie</title>
 </head>
 <body>
   <h1>Add Movie</h1>
 
-  <h2>name</h2>
-  <form action='/movies/' method='post'> 
-  <input type='text' name='name'>
+  <!-- Formulär för lägga till ny movie -->
+  <form action='/movies/' method='post'>
+    <h2>Movie Name</h2>
+    <input type='text' name='name' required>
 
-  <h2>description</h2>
-  <textarea name="description"></textarea>
+    <h2>Movie Description</h2>
+    <textarea name="description" required></textarea>
 
-  <h1>Add Director</h1>
-  <h2>name</h2>
-  <form action='/movies/' method='post'> 
-  <input type='text' name='name'>
+    <h1>Add Director</h1>
+    <h2>Director Name</h2>
+    <input type='text' name='director_name' required>
 
-  <h2>description</h2>
-  <textarea name="director_description"></textarea>
-  <input type='text' name='director_name'>
+    <h2>Director Description</h2>
+    <textarea name="director_description" required></textarea>
 
-  <button type='submit'>Add Movie</button>
+    <button type='submit'>Add Movie</button>
   </form>
 
 </body>
 </html>
+
 
 
 

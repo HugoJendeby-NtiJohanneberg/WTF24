@@ -1,7 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= h(@movies_selected['name']) %></title>
+</head>
+<body>
+    <h2><%= h(@movies_selected['name']) %></h2>
+    <p><%= h(@movies_selected['description']) %></p>
+    <p>Director:</p>
+    <p><a href="/directors"><%= h(@movies_selected['director_name']) %></a></p>
 
-<h2> <%= @movies_selected['name'] %> <h2>
-<p><%= @movies_selected['description'] %></p>
-<p>Director:</p>
-<p><a href="/movies"><%= @movies_selected['director_name'] %></a></p>
+    <p><a href="/movies">Show me all movies!</a></p>
 
-<p><a href="/movies">Show me all movies!</a></p>
+    <h3>Edit Movie</h3>
+    <form action="/movies/<%= @movies_selected['id'] %>/update" method="post">
+        <label for="name">Movie Name:</label>
+        <input type="text" id="name" name="name" value="<%= h(@movies_selected['name']) %>" required>
+        <br>
+        <label for="description">Movie Description:</label>
+        <textarea id="description" name="description" required><%= h(@movies_selected['description']) %></textarea>
+        <br>
+        <button type="submit">Update Movie</button>
+    </form>
+</body>
+</html>

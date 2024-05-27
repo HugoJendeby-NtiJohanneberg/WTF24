@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Movies</title>
 </head>
+
 <body>
-    
+    <h1>Movies</h1>
+    <ul>
+        <% @movies.each do |movie| %>
+            <li>
+                <a href="/movies/<%= h(movie['id']) %>"><%= h(movie['name']) %></a>
+            </li>
+        <% end %>
+    </ul>
 </body>
+
 </html>
-
-<% @movies.each do |movie|%>
-    <li>
-        <a href="/movies/<%=movie['id']%>"><%=movie['name']%></a>
-
-    </li>
-<%end%>
